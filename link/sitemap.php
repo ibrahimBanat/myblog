@@ -38,8 +38,8 @@ function __autoload($class){
 
     $classPath = '../../classes/class'. $class . '.php';
 
-    if(file_exists($filePath)) {
-        require_once $filePath;
+    if(file_exists($classPath)) {
+        require_once $classPath;
     }
 
 
