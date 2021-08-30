@@ -1,13 +1,14 @@
-
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 ob_start();
 session_start();
 
 //database details
 define('DBHOST','localhost');
-define('DBUSER','root');
-define('DBPASS','');
-define('DBNAME','technosmarterblog');
+define('DBUSER','ibrahim');
+define('DBPASS','1234');
+define('DBNAME','blog');
 
 $db = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -43,4 +44,3 @@ function __autoload($class) {
 
 $user = new User($db);
 
-?>
