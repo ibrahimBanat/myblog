@@ -1,6 +1,6 @@
 <?php
 
-require_once('../includes/confing.php');
+require_once('../includes/config.php');
 
 
 // check whether user is logged or not

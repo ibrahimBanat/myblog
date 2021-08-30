@@ -42,4 +42,3 @@ class User {
         session_destroy();
     }
 }
-?>
