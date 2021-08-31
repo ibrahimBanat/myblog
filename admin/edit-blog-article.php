@@ -58,7 +58,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
 
                     //insert into database
-                    $stmt = $db->prepare('UPDATE techno_blog SET articleTitle = :articleTitle,  articleDescrip = :articleDescrip, articleContent = :articleContent WHERE articleId = :articleId') ;
+                    $stmt = $db->prepare('UPDATE tech_blog SET articleTitle = :articleTitle,  articleDescrip = :articleDescrip, articleContent = :articleContent WHERE articleId = :articleId') ;
                     $stmt->execute(array(
                         ':articleTitle' => $articleTitle,
                         ':articleDescrip' => $articleDescrip,
@@ -92,7 +92,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
         try {
 
-            $stmt = $db->prepare('SELECT articleId,articleTitle, articleDescrip, articleContent FROM techno_blog WHERE articleId = :articleId') ;
+            $stmt = $db->prepare('SELECT articleId,articleTitle, articleDescrip, articleContent FROM tech_blog WHERE articleId = :articleId') ;
             $stmt->execute(array(':articleId' => $_GET['id']));
             $row = $stmt->fetch();
 

@@ -50,7 +50,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
             try {
 
                 //insert into database
-                $stmt = $db->prepare('INSERT INTO techno_blog_users (username,password,email) VALUES (:username, :password, :email)') ;
+                $stmt = $db->prepare('INSERT INTO tech_blog_users (username,password,email) VALUES (:username, :password, :email)') ;
                 $stmt->execute(array(
                     ':username' => $username,
                     ':password' => $hashedpassword,

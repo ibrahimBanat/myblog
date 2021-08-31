@@ -57,7 +57,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                     $hashedpassword = $user->create_hash($password);
 
                     //update into database
-                    $stmt = $db->prepare('UPDATE techno_blog_users SET username = :username, password = :password, email = :email WHERE userId = :userId') ;
+                    $stmt = $db->prepare('UPDATE tech_blog_users SET username = :username, password = :password, email = :email WHERE userId = :userId') ;
                     $stmt->execute(array(
                         ':username' => $username,
                         ':password' => $hashedpassword,
@@ -69,7 +69,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                 } else {
 
                     //update database
-                    $stmt = $db->prepare('UPDATE techno_blog_users SET username = :username, email = :email WHERE userId = :userId') ;
+                    $stmt = $db->prepare('UPDATE tech_blog_users SET username = :username, email = :email WHERE userId = :userId') ;
                     $stmt->execute(array(
                         ':username' => $username,
                         ':email' => $email,
@@ -104,7 +104,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 
     try {
 
-        $stmt = $db->prepare('SELECT userId, username, email FROM techno_blog_users WHERE userId = :userId') ;
+        $stmt = $db->prepare('SELECT userId, username, email FROM tech_blog_users WHERE userId = :userId') ;
         $stmt->execute(array(':userId' => $_GET['id']));
         $row = $stmt->fetch();
 

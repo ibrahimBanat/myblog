@@ -12,7 +12,7 @@ if(isset($_GET['deluser'])){
 
     if($_GET['deluser'] !='1'){
 
-        $stmt = $db->prepare('DELETE FROM techno_blog_users WHERE userId = :userId') ;
+        $stmt = $db->prepare('DELETE FROM tech_blog_users WHERE userId = :userId') ;
         $stmt->execute(array(':userId' => $_GET['deluser']));
 
         header('Location: blog-users.php?action=deleted');
@@ -55,7 +55,7 @@ if(isset($_GET['deluser'])){
         <?php
         try {
 
-            $stmt = $db->query('SELECT userId, username, email FROM techno_blog_users ORDER BY userId');
+            $stmt = $db->query('SELECT userId, username, email FROM tech_blog_users ORDER BY userId');
             while($row = $stmt->fetch()){
 
                 echo ' <tr>';

@@ -128,7 +128,7 @@ Class Password {
         }
 
         return $ret;
-    }
+    } }
 
         /**
          * Get information about the password hash. Returns an array of the information
@@ -141,5 +141,5 @@ Class Password {
          *        'cost' => 10,
          *    ),
          * )
-         *
+         */
  

@@ -23,7 +23,9 @@ include('head.php');
 <script language="JavaScript" type="text/javascript">
     function delpost (id, title) {
         if (confirm("Are you want to delete '" + title + "'")){
+            //??
             window.location.href = 'index.php?delpost=' + id;
+
         }
 
     }
@@ -42,6 +44,7 @@ include("header.php");
     ?>
     <table>
         <tr>
+            <th>Article Id</th>
             <th>Article Title</th>
             <th>Posted Date</th>
             <th>Update</th>
@@ -49,13 +52,14 @@ include("header.php");
         </tr>
         <?php
         try {
-            $stmt = $db->query('SELECT articleId, articleTitle, articleDate FROM tech_blog ORDERBY articleId DESC');
+            $stmt = $db->query('SELECT articleId, articleTitle, articleDate, articleDescrip FROM tech_blog ORDER BY articleId DESC;');
             while ($row = $stmt->fetch()) { ?>
                 <tr>
                     <td><?=$row['articleId'];?></td>
+                    <td><?=$row['articleTitle'];?></td>
                     <td><?= date('jS M Y', strtotime($row['articleDate']));?></td>
                     <td><button class="editbtn"><a href="edit-blog-article.php?id=<?= $row['articleId'];?>">Edit</a></button></td>
-                    <td><button class="delbtn"><a href="javascript:delpost('<?= $row['articleId'];?>')">Delete</a></button></td>
+                    <td><button class="delbtn"><a href="javascript:delpost('<?= $row['articleId'];?>', '<?= $row['articleTitle'];?>')">Delete</a></button></td>
                 </tr>
            <?php }
         } catch(PDOException $e) {

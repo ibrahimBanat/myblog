@@ -31,7 +31,7 @@ try {
         echo '<p>Posted on '.date('jS M Y', strtotime($row['articleDate'])).'</p>';
 
 
-        echo '<p>'.$row['articleDescrip'].'</p>';
+        echo '<p>'.$row['articleDesc'].'</p>';
         echo '<p><button class="readbtn"><a href="show.php?id='.$row['articleId'].'">Read More</a></button></p>';
         echo '</div>';
 
