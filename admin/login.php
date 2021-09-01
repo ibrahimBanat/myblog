@@ -4,7 +4,7 @@ require_once('../includes/config.php');
 
 
 // user looged in or not
-if( $user->is_logged_in() ){ header('Location: index.php'); }
+if( $user->is_logged_in() ){ header('Location: http://localhost/blogbostindex.php'); }
 ?>
 <!DOCTYPE html>
 <head>
@@ -28,7 +28,7 @@ if( $user->is_logged_in() ){ header('Location: index.php'); }
         if($user->login($username,$password)){
 
             //If looged in , the redirects to index page
-            header('Location: index.php');
+            header('Location: admin.php');
             exit;
 
 

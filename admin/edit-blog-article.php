@@ -68,7 +68,7 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
                     ));
 
                     //redirect to index page
-                    header('Location: index.php?action=updated');
+                    header('Location: admin.php?action=updated');
                     exit;
 
                 } catch(PDOException $e) {

@@ -29,20 +29,64 @@ include("header.php");
                     $username = $_POST['username'];
                     $lastname = $_POST['lastname'];
                     $email = $_POST['email'];
-                    $password = $_POST['password'];
-                    $confirm_password = $_POST['confirmPassword'];
-                    $img = $_POST['img'];
-
-                    if($password !== $confirm_password) {
-                    echo '<div id="messagec" class="absolute top-0 left-16 bg-red-100 border border-red-300 w-96 text-red-700 flex items-center justify-between py-2 px-4 hover:bg-red-200 rounded-lg">
+                    $user= new User($db);
                     
-                    <div class="">Password are not match</div>
-                    <button id="closeModal" class="">&times;</button>
-</div>';
-                    exit;
-                    } else {
-                        $sttm = $db->prepare('INSERT INTO tech_blog_users');
+                    $password = $user->create_hash(strval($_POST['password']));
+                     
+                    $confirm_password = $user->create_hash(strval($_POST['confirmPassword']));
+                    if($password !== $confirm_password) {
+                        echo '<div id="messagec" class="absolute top-0 left-16 bg-red-100 border border-red-300 w-96 text-red-700 flex items-center justify-between py-2 px-4 hover:bg-red-200 rounded-lg">
+                        
+                        <div class="">Password are not match</div>
+                        <button id="closeModal" class="">&times;</button>
+    </div>';
+                        exit;
+                        }
+                    if($_FILES['fileToUpload']) {
+                        $target_dir = "uploads/";
+                    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                    basename($_FILES["fileToUpload"]["name"]);
+                    $uploadOk = 1;
+                    $imageFileType = strtolower((pathinfo($target_file, PATHINFO_EXTENSION)));
+                    $check = getimagesize($_FILES['fileToUpload']["tmp_name"]);
+                    
+                        if($check !== false) {
+                            echo "File is an image - " . $check["mime"] . ".";
+                            $uploadOk = 1;
+
+                        } else {
+
+                        }
+                        // Allow certain file formats
+                        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                            && $imageFileType != "gif" ) {
+                            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                            $uploadOk = 0;
+                        }
+                        if ($uploadOk == 0) {
+                            echo "Sorry, your file was not uploaded.";
+                            exit;
+                          // if everything is ok, try to upload file
+                          } else {
+                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                              echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                            } else {
+                              echo "Sorry, there was an error uploading your file.";
+                              exit;
+                            }
+                          }
                     }
+
+                    
+                          $sttm = $db->prepare('INSERT INTO images(img_path) VALUES (:imgPath)');
+                          $sttm->execute(array(':imgPath' =>  $_FILES["fileToUpload"]["tmp_name"]? 'uploads/' . basename( $_FILES["fileToUpload"]["name"] ) : null));
+
+                          $stmt2 = $db->prepare('INSERT INTO tech_blog_users (username, name, email, password , img_id) VALUES (:username, :name, :email, :password , :image_id)');
+                          $stmt2->execute([':username' => $username, ':password'=> $password , ':name' => $firstname . $lastname, 'email'=> $email , 'image_id' => $db->lastInsertId()]);
+                          header('Location: login.php');
+
+
+                     
 
                 }
                 ?>
@@ -133,7 +177,7 @@ include("header.php");
                                 <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                             </svg>
                             <span class="mt-2 text-base leading-normal ml-6">Select Image</span>
-                            <input type="file" id="img" name="img" accept="image/*" class="hidden"/>
+                            <input type="file" id="img" name="fileToUpload" accept="image/*" class="hidden"/>
                         </label>
 
                     </div>

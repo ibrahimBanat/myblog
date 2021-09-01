@@ -2,6 +2,7 @@
 <body>
 <?php
 require_once('./includes/config.php');
+
 include("header.php");
 ?>
 
@@ -25,7 +26,20 @@ include("header.php");
                     if($user->login($username,$password)){
 
                         //If looged in , the redirects to index page
-                        header('Location: index.php');
+                        $_SESSION['username'] = $username;
+
+                        $stmt = $db->prepare('SELECT * FROM tech_blog_users WHERE username = :username');
+                        $stmt->execute([':username' => $username]);
+                        $row = $stmt->fetchObject();
+
+                        if($row->role == 'admin') {
+                            header('Location: admin.php');
+
+                        }else {
+                            header('Location: profile.php');
+
+                        }
+
                         exit;
 
 

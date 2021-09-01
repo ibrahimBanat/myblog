@@ -3,7 +3,22 @@
 
 <?php
 //connection File
-include('includes/config.php'); ?>
+include('includes/config.php');
+if(!$_SESSION['username']){
+
+} else {
+    $stmt = $db->prepare('SELECT * from tech_blog_users WHERE username = :username');
+    $stmt->execute([':username' => $_SESSION['username']]);
+    $row = $stmt->fetchObject();
+    if($row->role === 'admin') {
+        header('Location: admin/admin.php');
+    }
+}
+
+
+
+?>
+
 
 <?php
 //include head file for language preference

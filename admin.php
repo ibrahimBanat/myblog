@@ -1,7 +1,5 @@
 <?php
-require_once('../includes/config.php');
-
-
+require_once('./includes/config.php');
 //check whether if the user logged in or not
 
 if(!$user->is_logged_in()){header('Location: login.php');};
@@ -9,7 +7,7 @@ if(!$user->is_logged_in()){header('Location: login.php');};
 if(isset($__GET['delpost'])){
     $stmt = $db->prepare('DELETE FROM tech_blog WHERE articleId = :articleId');
     $stmt->execute(array('articleId' => $__GET['delpost']));
-    header('Location: index.php?action=deleted');
+    header('Location: admin.php?action=deleted');
     exit;
 }
 
@@ -24,7 +22,7 @@ include('head.php');
     function delpost (id, title) {
         if (confirm("Are you want to delete '" + title + "'")){
             //??
-            window.location.href = 'index.php?delpost=' + id;
+            window.location.href = 'admin.php?delpost=' + id;
 
         }
 
@@ -58,7 +56,7 @@ include("header.php");
                     <td><?=$row['articleId'];?></td>
                     <td><?=$row['articleTitle'];?></td>
                     <td><?= date('jS M Y', strtotime($row['articleDate']));?></td>
-                    <td><button class="editbtn"><a href="edit-blog-article.php?id=<?= $row['articleId'];?>">Edit</a></button></td>
+                    <td><button class="editbtn"><a href="admin/edit-blog-article.php?id=<?= $row['articleId'];?>">Edit</a></button></td>
                     <td><button class="delbtn"><a href="javascript:delpost('<?= $row['articleId'];?>', '<?= $row['articleTitle'];?>')">Delete</a></button></td>
                 </tr>
            <?php }
@@ -71,6 +69,4 @@ include("header.php");
     <p ><button class="editbtn"><a href="add-blog-article.php">Add Article</a></button></p>
 </div>
 
-<?php
-include('footer.php')
-?>
+</body>

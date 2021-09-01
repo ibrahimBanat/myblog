@@ -4,9 +4,10 @@
 </head>
 <body>
 <ul class="ulclass">
-    <li><a href="index.php">Dashboard</a></li>
+    <?php echo $_SESSION['loggedin']?>
+    <li><a href="../admin.php">Dashboard</a></li>
     <li><a href="blog-users.php">Users</a></li>
     <li><a href="../" target="_blank">Visit BLog</a></li>
     <li><a href="login.php">login</a></li>
-    <li><a href="logout.php">Logout</a></li>
+    <li><a href="../logout.php">Logout</a></li>
 </ul>

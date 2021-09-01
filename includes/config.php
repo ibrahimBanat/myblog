@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 ob_start();
 session_start();
-
+require_once('classes/class.user.php');
 //database details
 define('DBHOST','localhost');
 define('DBUSER','ibrahim');
@@ -18,7 +18,7 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 date_default_timezone_set('Asia/Kolkata');
 
 //load classes as needed
-function __autoload($class) {
+function autoload($class) {
 
     $class = strtolower($class);
 
@@ -39,8 +39,7 @@ function __autoload($class) {
     if ( file_exists($classpath)) {
         require_once $classpath;
     }
-
 }
-
 $user = new User($db);
+
 
